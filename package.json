@@ -1,0 +1,30 @@
+{
+    "name": "dyson-image",
+    "version": "0.1.0",
+    "description": "Image proxy and base64 generator for dyson",
+    "keywords": ["dyson", "dummy", "image", "base64"],
+    "author": {
+        "name": "Lars Kappert",
+        "email": "lars@webpro.nl"
+    },
+    "dependencies": {
+        "request": "~2.12",
+        "mmmagic": "~0.2",
+        "when": "~1.7"
+    },
+    "devDependencies": {
+        "express": "3.x",
+        "mocha": "1.8.1",
+        "should": "1.2.1"
+    },
+    "scripts": {
+        "test": "make test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/webpro/dyson-image"
+    },
+    "engines": {
+        "node": "0.8.x"
+    }
+}
