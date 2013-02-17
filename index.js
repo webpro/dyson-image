@@ -3,6 +3,16 @@ var http = require('http'),
     when = require('when'),
     mimeMagic = require('node-ee-mime-magic');
 
+var isTest = function() {
+    return process.env.NODE_ENV === 'test';
+};
+
+var log = function() {
+    if(!isTest()) {
+        console.log.apply(console, arguments)
+    }
+};
+
 var mimeDetectFn = mimeMagic;
 var getMimeType = function(result) {
     return result.mime;
@@ -18,11 +28,11 @@ try {
         return result.split(';')[0]
     };
 
-    console.log('[dyson-image] Using "mmmagic" for detecting image mime-type.');
+    log('[dyson-image] Using "mmmagic" for detecting image mime-type.');
 
 } catch(error) {
 
-    console.log('[dyson-image] Falling back to "node-ee-mime-magic" for detecting image mime-type.');
+    log('[dyson-image] Falling back to "node-ee-mime-magic" for detecting image mime-type.');
 
 }
 
@@ -78,7 +88,7 @@ var asMiddleware = function(req, res, next) {
 
     var path = req.url.replace('/image', '');
 
-    console.log('Resolving response for', req.url, imageCache[path] ? '(cached)' : '');
+    log('[dyson-image] Resolving response for', req.url, imageCache[path] ? '(cached)' : '');
 
     if(!imageCache[path]) {
         imageCache[path] = imageRequest({path: path});
