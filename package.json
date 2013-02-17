@@ -1,6 +1,6 @@
 {
     "name": "dyson-image",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Image proxy and base64 generator for dyson",
     "keywords": ["dyson", "dummy", "image", "base64"],
     "author": {
