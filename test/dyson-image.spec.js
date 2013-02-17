@@ -1,5 +1,6 @@
 var image = require('../index'),
-    express = require('express');
+    express = require('express'),
+    request = require('supertest');
 
 var imageDir = __dirname + '/dummy';
 
@@ -31,6 +32,21 @@ describe('dyson.image', function() {
                 done();
 
             });
-        })
+        });
+
+        it('should respond with an image', function(done) {
+
+            var app = express();
+
+            app.get('/image/*', image.asMiddleware);
+
+            request(app).get('/image/300x200').end(function(errors, res) {
+
+                res.headers['content-type'].should.equal('image/png');
+                done();
+
+            });
+        });
+
     });
 });
