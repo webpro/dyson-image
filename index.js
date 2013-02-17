@@ -1,10 +1,30 @@
 var http = require('http'),
     request = require('request'),
     when = require('when'),
-    mmm = require('mmmagic'),
-    Magic = mmm.Magic;
+    mimeMagic = require('node-ee-mime-magic');
 
-var magic = new Magic(mmm.MAGIC_MIME);
+var mimeDetectFn = mimeMagic;
+var getMimeType = function(result) {
+    return result.mime;
+};
+
+try {
+
+    var mmm = require('mmmagic'),
+        magic = new mmm.Magic(mmm.MAGIC_MIME);
+
+    mimeDetectFn = magic.detect;
+    getMimeType = function(result) {
+        return result.split(';')[0]
+    };
+
+    console.log('[dyson-image] Using "mmmagic" for detecting image mime-type.');
+
+} catch(error) {
+
+    console.log('[dyson-image] Falling back to "node-ee-mime-magic" for detecting image mime-type.');
+
+}
 
 var imageCache = {};
 
@@ -37,14 +57,14 @@ var imageRequest = function(options) {
 
             var imageBuffer = new Buffer(body, 'binary');
 
-            magic.detect(imageBuffer, function(error, mimeType) {
+            mimeDetectFn(imageBuffer, function(error, result) {
 
                 if(error) {
                     deferred.reject(error);
                 }
 
                 deferred.resolve({
-                    mimeType: mimeType.split(';')[0],
+                    mimeType: getMimeType(result),
                     buffer: imageBuffer
                 });
             });

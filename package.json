@@ -9,8 +9,11 @@
     },
     "dependencies": {
         "request": "~2.12",
-        "mmmagic": "~0.2",
+        "node-ee-mime-magic": "0.1.0",
         "when": "~1.7"
+    },
+    "optionalDependencies": {
+        "mmmagic": "~0.2"
     },
     "devDependencies": {
         "express": "3.x",
