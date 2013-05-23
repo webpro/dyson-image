@@ -14,6 +14,8 @@ Install dyson-image locally by including it in `package.json` as a `devDependenc
         "dyson-image": "~0.1"
     }
 
+There may be errors coming from gyp/mmmagic during installation on Windows. These can be ignored, since a fallback dependency is in place.
+
 ## Examples
 
 ### Image buffer
