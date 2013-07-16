@@ -2,18 +2,18 @@
     "name": "dyson-image",
     "version": "0.1.1",
     "description": "Image proxy and base64 generator for dyson",
-    "keywords": ["dyson", "dummy", "image", "base64"],
+    "keywords": ["JSON", "data", "dynamic", "dummy", "fake", "response", "server", "API", "REST", "generator", "image", "base64"],
     "author": {
         "name": "Lars Kappert",
         "email": "lars@webpro.nl"
     },
     "dependencies": {
-        "request": "~2.12",
+        "request": "~2.22",
         "node-ee-mime-magic": "0.1.0",
-        "when": "~1.7"
+        "when": "~2.2.1"
     },
     "optionalDependencies": {
-        "mmmagic": "~0.2"
+        "mmmagic": "~0.3.1"
     },
     "devDependencies": {
         "express": "3.x",
@@ -29,5 +29,6 @@
     },
     "engines": {
         "node": "0.8.x"
-    }
+    },
+    "license": "MIT"
 }
