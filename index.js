@@ -13,29 +13,6 @@ var log = function() {
     }
 };
 
-var mimeDetectFn = mimeMagic;
-var getMimeType = function(result) {
-    return result.mime;
-};
-
-try {
-
-    var mmm = require('mmmagic'),
-        magic = new mmm.Magic(mmm.MAGIC_MIME);
-
-    mimeDetectFn = magic.detect;
-    getMimeType = function(result) {
-        return result.split(';')[0]
-    };
-
-    log('[dyson-image] Using "mmmagic" for detecting image mime-type.');
-
-} catch(error) {
-
-    log('[dyson-image] Falling back to "node-ee-mime-magic" for detecting image mime-type.');
-
-}
-
 var imageCache = {};
 
 var imageRequest = function(options) {
@@ -67,14 +44,14 @@ var imageRequest = function(options) {
 
             var imageBuffer = new Buffer(body, 'binary');
 
-            mimeDetectFn(imageBuffer, function(error, result) {
+            mimeMagic(imageBuffer, function(error, result) {
 
                 if(error) {
                     deferred.reject(error);
                 }
 
                 deferred.resolve({
-                    mimeType: getMimeType(result),
+                    mimeType: result.mime,
                     buffer: imageBuffer
                 });
             });
