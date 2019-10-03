@@ -39,7 +39,7 @@ var imageRequest = function(options) {
         }
 
         if (!error && response.statusCode === 200) {
-          var imageBuffer = new Buffer(body, 'binary');
+          var imageBuffer = Buffer.from(body, 'binary');
 
           mimeMagic(imageBuffer, function(error, result) {
             if (error) {
@@ -47,7 +47,7 @@ var imageRequest = function(options) {
             }
 
             resolve({
-              mimeType: result.mime,
+              mimeType: result ? result.mime : null,
               buffer: imageBuffer
             });
           });

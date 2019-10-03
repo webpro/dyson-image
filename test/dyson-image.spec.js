@@ -10,12 +10,12 @@ describe('dyson.image', function() {
       var actual = image.request();
 
       actual.should.have.property('then');
-      actual.then.should.be.a('function');
+      actual.then.should.be.a.Function();
     });
 
     it('should resolve its promise with an object: {mimeType, buffer}', function(done) {
       // Serve an actual image at http://127.0.0.1:3001/image.png
-      express()
+      const app = express()
         .use(express.static(imageDir))
         .listen(3001);
 
@@ -27,6 +27,7 @@ describe('dyson.image', function() {
         .then(function(actual) {
           actual.mimeType.should.equal('image/png');
           Buffer.isBuffer(actual.buffer).should.be.true;
+          app.close();
           done();
         });
     });
